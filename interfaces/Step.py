@@ -1,5 +1,6 @@
 # This file is licensed under the GNU General Public License v3.0 (GPLv3).
 # See the LICENSE file or https://www.gnu.org/licenses/ for details.from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod
 
 class Step(ABC):
     __steps = None
@@ -9,6 +10,12 @@ class Step(ABC):
     def execute(self):
         pass
 
-    @abstractmethod
     def enchain_step(self, step):
-        pass
+        if self.__steps is None:
+            self.__steps = []
+        self.__steps.append(step)
+
+    def add_precondition(self, precondition):
+        if self.__preconditions is None:
+            self.__preconditions = []
+        self.__preconditions.append(precondition)
